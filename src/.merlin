@@ -1,0 +1,6 @@
+PRJ cofloco
+S . /usr/local/lib/ppl/
+
+PKG core gmp 
+
+B _build/.
