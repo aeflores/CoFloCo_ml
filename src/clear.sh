@@ -1,6 +1,6 @@
 rm *.cmi
 rm *.cmx
 rm *.o
-rm input.native
+rm main.native
 rm lexer.opt
 

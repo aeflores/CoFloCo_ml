@@ -3,6 +3,7 @@ open Linear_expression;;
 open Constraint_set;;
 open Utils;;
 open Db;;
+open Scc;;
 
 let print_separated_list print_elem separator list=
     match list with
@@ -59,3 +60,15 @@ let print_entries ()=
 let print_crs ()=
   print_string "%CRS:\n";
   Hashtbl.iter ~f:(fun ~key:key ~data:value-> print_cr value) Db.crs
+
+let print_scc {entries;nodes; recursive; cutset}=
+  (match recursive with
+    true -> print_string "recursive:"
+  |  false-> print_string "non_recursive:");
+  print_string " |nodes: ";
+  print_separated_list print_string "," nodes;
+  print_string " |cutset: ";print_string cutset;
+  print_string "\n"
+
+let print_sccs sccs=	   
+  List.iter ~f:print_scc sccs;

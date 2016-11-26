@@ -1,17 +1,29 @@
-open Core.Std
-(*
-type mytype = (int, int) Map.Poly.t
-let mapa=Map.Poly.empty
-let mapa1=Map.Poly.add mapa 2 3  
-let rec read_and_accumulate accum =
-  let line = In_channel.input_line In_channel.stdin in 
-  match line with
-  | None -> accum
-  | Some x -> read_and_accumulate (accum +. Float.of_string x)
-*)
+open Core.Std;;
+
+
+
+let main filename=
+  Input.parse_eqs filename;
+(*  Output.print_entries (); *)
+(*   Output.print_crs (); *)
+  let sccs=Scc.compute_sccs_and_cutsets () in
+  Output.print_sccs sccs;
+  Partial_evaluation.pe sccs
+   
+  
+
+
+let spec =
+  let open Command.Spec in
+  empty
+  +> anon ("filename" %: string)
+
+let command =
+  Command.basic
+    ~summary:"Read cost equations"
+    ~readme:(fun () -> "More detailed information")
+    spec
+    (fun filename () -> main filename)
 
 let () =
-  let res=  Ppl.ppl_project [Ppl.v1;Ppl.v2;Ppl.v5] [Ppl.c1;Ppl.c2;Ppl.c3] in
-  match List.map ~f:Ppl.print_constraint res with
-    _ -> ();;
-
+  Command.run ~version:"1.0" ~build_info:"RWO" command

@@ -187,21 +187,5 @@ let parse_eqs filename =
   lexbuf.lex_curr_p <- { lexbuf.lex_curr_p with pos_fname = filename };
   parse_and_store lexbuf;
   In_channel.close inx;
-  Output.print_entries ();
-  normalize_crs ();
-  Output.print_crs ();;
-
-let spec =
-  let open Command.Spec in
-  empty
-  +> anon ("filename" %: string)
-
-let command =
-  Command.basic
-    ~summary:"Read cost equations"
-    ~readme:(fun () -> "More detailed information")
-    spec
-    (fun filename () -> parse_eqs filename)
-
-let () =
-  Command.run ~version:"1.0" ~build_info:"RWO" command
+  normalize_crs ()
+ 

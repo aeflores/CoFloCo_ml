@@ -15,14 +15,20 @@ ocamlfind ocamlopt -o constraint_set.opt -c  -package gmp -package core -thread 
 
 ocamlfind ocamlopt -o db.opt -c  -package gmp -package core -thread  db.ml
 
+ocamlfind ocamlopt -o scc.opt -c -package core -package ocamlgraph  -thread scc.ml
+
 ocamlfind ocamlopt -o ppl.opt  -c -I /usr/local/lib/ppl/  -package gmp -package core -thread  ppl.ml
+
+ocamlfind ocamlopt -o partial_evaluation.opt -c -package core  -thread partial_evaluation.ml
 
 ocamlfind ocamlopt -o lexer.opt -c  -package gmp -package core -thread  lexer.ml
 
 ocamlfind ocamlopt -o output.opt -c  -package gmp -package core -thread  output.ml
 ocamlfind ocamlopt -o input.opt -c  -package gmp -package core -thread  input.ml
 
-ocamlfind ocamlopt -o input.native -cc g++ -I /home/aeflores/.opam/system/lib/gmp -I /usr/local/lib/ppl   -cclib -lppl -cclib -lm -cclib -lgmpxx -cclib -lgmp   -linkpkg -package core -thread ppl_ocaml.cmxa gmp.cmxa utils.cmx input_types.cmx parser.cmx lexer.cmx linear_expression.cmx constraint_set.cmx db.cmx ppl.cmx output.cmx input.cmx
+ocamlfind ocamlopt -o main.opt -c  -package gmp -package core -thread  main.ml
+
+ocamlfind ocamlopt -o main.native -cc g++ -I /home/aeflores/.opam/system/lib/gmp -I /usr/local/lib/ppl   -cclib -lppl -cclib -lm -cclib -lgmpxx -cclib -lgmp   -linkpkg -package core -package ocamlgraph -thread ppl_ocaml.cmxa gmp.cmxa utils.cmx input_types.cmx parser.cmx lexer.cmx linear_expression.cmx constraint_set.cmx db.cmx scc.cmx ppl.cmx partial_evaluation.cmx output.cmx input.cmx main.cmx
 
 #ocamlfind ocamlopt -o ppl.opt  -c -I /usr/local/lib/ppl/  -package gmp -package core -thread  ppl.ml
 
